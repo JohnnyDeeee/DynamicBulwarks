@@ -21,6 +21,8 @@ publicVariable "BULWARK_BUILDITEMS";
 publicVariable "PLAYER_STARTWEAPON";
 publicVariable "PLAYER_STARTMAP";
 publicVariable "PLAYER_STARTNVG";
+publicVariable "PLAYER_STARTCOMPASS";
+publicVariable "PLAYER_STARTFIRSTAID";
 publicVariable "PISTOL_HOSTILES";
 publicVariable "DOWN_TIME";
 

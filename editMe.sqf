@@ -27,12 +27,19 @@ LOOT_HOUSE_DENSITY = ("LOOT_HOUSE_DENSITY" call BIS_fnc_getParamValue);
 PLAYER_STARTWEAPON = if ("PLAYER_STARTWEAPON" call BIS_fnc_getParamValue == 1) then {true} else {false};
 PLAYER_STARTMAP    = if ("PLAYER_STARTMAP" call BIS_fnc_getParamValue == 1) then {true} else {false};
 PLAYER_STARTNVG    = if ("PLAYER_STARTNVG" call BIS_fnc_getParamValue == 1) then {true} else {false};
+PLAYER_STARTCOMPASS    = if ("PLAYER_STARTCOMPASS" call BIS_fnc_getParamValue == 1) then {true} else {false};
+PLAYER_STARTFIRSTAID    = if ("PLAYER_STARTFIRSTAID" call BIS_fnc_getParamValue == 1) then {true} else {false};
 
 /* Loot Blacklist */
 LOOT_BLACKLIST = [
-    "example_item1",
-    "example_item2",
-    "example_item3"
+    "ATMine_Range_Mag",
+    "ClaymoreDirectionalMine_Remote_Mag",
+    "APERSMine_Range_Mag",
+    "APERSBoundingMine_Range_Mag",
+    "SLAMDirectionalMine_Wire_Mag",
+    "APERSTripMine_Wire_Mag",
+    "APERSMineDispenser_Mag",
+    "TrainingMine_Mag"
 ];
 
 /* Loot Spawn */

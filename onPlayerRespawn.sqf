@@ -25,3 +25,12 @@ if(PLAYER_STARTNVG) then {
     _player addItem "Integrated_NVG_F";
     _player assignItem "Integrated_NVG_F";
 };
+
+if(PLAYER_STARTCOMPASS) then {
+	_player addItem "ItemCompass";
+	_player assignItem "ItemCompass";
+};
+
+if(PLAYER_STARTFIRSTAID) then {
+	_player addItem "FirstAidKit";
+};

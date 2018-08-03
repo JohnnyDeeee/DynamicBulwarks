@@ -3,7 +3,7 @@ onLoadIntro = "Defend yourself";
 onLoadName = "dynamicBulwarks";
 briefingName = "dynamicBulwarks";
 overviewText = "Survive by scavenging equipment, in a randomly selected city, against ever increasing waves of hostiles.";
-author = "Hilltop & omNomios";
+author = "Hilltop & omNomios (edit by JohnDoe)";
 overviewPicture = "preview.paa";
 
 loadScreen = "preview.paa";
@@ -196,6 +196,22 @@ class Params
 	class PLAYER_STARTNVG
 	{
 		title = "Players start with NVG";
+		values[] = {0, 1};
+		texts[] = {"No", "Yes"};
+		default = 0;
+	};
+
+	class PLAYER_STARTCOMPASS
+	{
+		title = "Players start with Compass";
+		values[] = {0, 1};
+		texts[] = {"No", "Yes"};
+		default = 1;
+	};
+
+	class PLAYER_STARTFIRSTAID
+	{
+		title = "Players start with First Aid";
 		values[] = {0, 1};
 		texts[] = {"No", "Yes"};
 		default = 0;

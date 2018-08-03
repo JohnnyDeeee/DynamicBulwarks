@@ -4,7 +4,9 @@ _downTime = ("DOWN_TIME" call BIS_fnc_getParamValue);
 
 _CenterPos = _this;
 attkWave = 0;
+totalEnemyUnits = 0;
 publicVariable "attkWave";
+publicVariable "totalEnemyUnits";
 activeLoot = [];
 //mrkrs = [];
 
@@ -21,9 +23,9 @@ runMissionLoop = true;
 missionFailure = false;
 
 while {runMissionLoop} do {
-	for ("_i") from 0 to 14 do {
+	for ("_i") from 0 to _downTime do {
 		if(_i > 10) then {"beep_target" remoteExec ["playsound", 0];} else {"readoutClick" remoteExec ["playsound", 0];};
-		[format ["<t>%1</t>", 15-_i], 0, 0, 1, 0] remoteExec ["BIS_fnc_dynamicText", 0];
+		[format ["<t>%1</t>", _downTime-_i], 0, 0, 1, 0] remoteExec ["BIS_fnc_dynamicText", 0];
 		sleep 1;
 	};
 
@@ -141,5 +143,5 @@ while {runMissionLoop} do {
 		};
 	} foreach allPlayers;
 
-	sleep _downTime;
+	/*sleep _downTime;*/
 };
