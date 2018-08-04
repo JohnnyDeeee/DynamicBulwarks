@@ -32,13 +32,11 @@ _reldir = [_dropStart, _targetPos] call BIS_fnc_dirTo;
 _agVehicle setdir _reldir;
 
 (leader _ag) setVariable ["supplyDropLatch", false, false];
-systemChat str (leader _ag);
 
 _waypoint0 = _ag addwaypoint[_dropTarget,0];
 _waypoint0 setwaypointtype "Move";
 _waypoint0 setWaypointCompletionRadius 5;
-_waypoint0 setWaypointStatements ["true", "(leader this) setVariable [""supplyDropLatch"", true, false];
-	systemChat str (leader this);"];
+_waypoint0 setWaypointStatements ["true", "(leader this) setVariable [""supplyDropLatch"", true, false];"];
 
 _waypoint1 = _ag addwaypoint[_dropEnd,0];
 _waypoint1 setwaypointtype "Move";
