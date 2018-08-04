@@ -31,12 +31,14 @@ _agVehicle setpos [getposATL _agVehicle select 0, getposATL _agVehicle select 1,
 _reldir = [_dropStart, _targetPos] call BIS_fnc_dirTo;
 _agVehicle setdir _reldir;
 
-supplyDropLatch = false;
+(leader _ag) setVariable ["supplyDropLatch", false, false];
+systemChat str (leader _ag);
 
 _waypoint0 = _ag addwaypoint[_dropTarget,0];
 _waypoint0 setwaypointtype "Move";
 _waypoint0 setWaypointCompletionRadius 5;
-_waypoint0 setWaypointStatements ["true", "supplyDropLatch = true;"];
+_waypoint0 setWaypointStatements ["true", "(leader this) setVariable [""supplyDropLatch"", true, false];
+	systemChat str (leader this);"];
 
 _waypoint1 = _ag addwaypoint[_dropEnd,0];
 _waypoint1 setwaypointtype "Move";
@@ -47,7 +49,7 @@ _waypoint1 setwaypointtype "Move";
 
 sleep 4;
 _agVehicle animateDoor ['Door_1_source', 1];
-waitUntil {supplyDropLatch};
+waitUntil {((leader _ag) getVariable "supplyDropLatch")};
 sleep 1.5;
 
 // Drop cargo
@@ -59,7 +61,9 @@ if (isNil "_box") then {
 	_box = "Cargonet_01_box_F";
 };
 _supplyBox = createVehicle [_box, [0,0,0], [], 0, "CAN_COLLIDE"];
-[_supplyBox, _cargo] remoteExec ["addAction", 0, true];
+if (!isNil "_cargo") then {
+	[_supplyBox, _cargo] remoteExec ["addAction", 0, true];
+};
 _supplyBox attachTo [_parachute, [0,0,0]];
 _supplyBox allowDamage false;
 clearMagazineCargoGlobal _supplyBox;
@@ -67,27 +71,29 @@ clearWeaponCargoGlobal _supplyBox;
 clearBackpackCargoGlobal _supplyBox;
 clearItemCargoGlobal _supplyBox;
 
-if ((count _items) > 0) then {
-	// Add cargo to inventory of supplyBox
-	{
-		_item = _x select 0;
-		_amount = _x select 1;
-		_supplyBox addItemCargoGlobal [_item, _amount];
-	} forEach _items;
+if(!isNil "_items") then {
+	if ((count _items) > 0) then {
+		// Add cargo to inventory of supplyBox
+		{
+			_item = _x select 0;
+			_amount = _x select 1;
+			_supplyBox addItemCargoGlobal [_item, _amount];
+		} forEach _items;
 
-	// Delete supply box when inventory is empty
-	_supplyBox addEventHandler ["ContainerClosed",
-	{
-		params ["_container"];
+		// Delete supply box when inventory is empty
+		_supplyBox addEventHandler ["ContainerClosed",
+		{
+			params ["_container"];
 
-		if !(magazineCargo _container isEqualTo []) exitWith {};
-		if !(weaponCargo _container isEqualTo []) exitWith {};
-		if !(backpackCargo _container isEqualTo []) exitWith {};
-		if !(itemCargo _container isEqualTo []) exitWith {};
+			if !(magazineCargo _container isEqualTo []) exitWith {};
+			if !(weaponCargo _container isEqualTo []) exitWith {};
+			if !(backpackCargo _container isEqualTo []) exitWith {};
+			if !(itemCargo _container isEqualTo []) exitWith {};
 
-		// TODO: Doesn't delete the object ?
-		deleteVehicle _container;
-	}];
+			// TODO: Doesn't delete the object ?
+			deleteVehicle _container;
+		}];
+	};
 };
 
 waitUntil {getpos _supplyBox select 2<4};

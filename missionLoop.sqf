@@ -133,6 +133,10 @@ while {runMissionLoop} do {
 	["TaskSucceeded",["Complete","Wave " + str attkWave + " complete!"]] remoteExec ["BIS_fnc_showNotification", 0];
 	[0] remoteExec ["setPlayerRespawnTime", 0];
 
+	totalEnemyUnits = 0;
+	publicVariable "totalEnemyUnits";
+	[] remoteExec ["killPoints_fnc_updateHud", -2];
+
 	{
 		// Try to force the spectator mode off when players are revived.
 		["Terminate"] remoteExec ["BIS_fnc_EGSpectator", _x];
