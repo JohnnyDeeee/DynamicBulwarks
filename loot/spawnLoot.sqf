@@ -54,7 +54,30 @@ _roomCount = 0;
 				_lootRoomPos = _x;
 				_lootHolder = "WeaponHolderSimulated_Scripted" createVehicle _lootRoomPos;
 
-				switch (floor random 6) do {
+
+				// Exclude "empty" pools from being picked as a random number
+				_weaponsAmount = (count LOOT_WEAPON_POOL);
+				_apparelAmount = (count LOOT_APPAREL_POOL);
+				_itemsAmount =  (count LOOT_ITEM_POOL);
+				_storageAmount = (count LOOT_STORAGE_POOL);
+				_explosivesAmount = (count LOOT_EXPLOSIVE_POOL);
+
+				_pools = [];
+				if (_weaponsAmount > 0) 	then { _pools pushback 0;
+												   _pools pushBack 1; };
+				if (_apparelAmount > 0) 	then { _pools pushback 2; };
+				if (_itemsAmount > 0) 		then { _pools pushback 3; };
+				if (_storageAmount > 0) 	then { _pools pushback 4; };
+				if (_explosivesAmount > 0) 	then { _pools pushback 5; };
+
+				if (_pools isEqualTo []) exitWith {
+					FATALERROR = "All loot is blacklisted!";
+					"EndError" call BIS_fnc_endMissionServer;
+				};
+
+				_random = _pools call BIS_fnc_selectRandom;
+
+				switch (_random) do {
 					case 0: {
 						_weapon = selectRandom LOOT_WEAPON_POOL;
 						_ammoArray = getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines");

@@ -42,6 +42,9 @@ LOOT_BLACKLIST = [
     "TrainingMine_Mag"
 ];
 
+// DEBUG
+LOOT_BLACKLIST = List_AllWeapons + List_AllClothes + List_Vests + List_Optics + List_Items + List_Mines + List_Backpacks;
+
 /* Loot Spawn */
 LOOT_WEAPON_POOL    = List_AllWeapons - LOOT_BLACKLIST;    // Classnames of Loot items as an array
 LOOT_APPAREL_POOL   = List_AllClothes + List_Vests - LOOT_BLACKLIST;

@@ -70,6 +70,25 @@ class CfgDebriefing
 		picture = "KIA";
 		pictureColor[] = {0.6,0.1,0.2,1};
 	};
+
+	class EndError
+	{
+		title = "Fatal Error";
+		subtitle = "See debriefing section ""Error"" for the error description";
+		description = "Game Over";
+		pictureBackground = "";
+		picture = "KIA";
+		pictureColor[] = {0.6,0.1,0.2,1};
+	};
+};
+
+class CfgDebriefingSections
+{
+	class Error
+	{
+		title = "Error";
+		variable = "FATALERROR";
+	};
 };
 
 class CfgCommunicationMenu
