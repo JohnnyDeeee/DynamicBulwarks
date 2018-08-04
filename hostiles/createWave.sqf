@@ -15,6 +15,7 @@ if (attkWave <= 2) then {
 	_multiplierBase = 1
 };
 
+totalEnemyUnits = 0;
 updateTotalEnemyUnits = {
 	params ["_addToTotal"];
 	totalEnemyUnits = (totalEnemyUnits + _addToTotal);

@@ -2,10 +2,11 @@
 *  fn_supplyDrop
 *
 *  Calls VTOL to drop a box with the action definend by _cargo attached
+*  Also adds _items to the cargo of the object (format: [["item1", "amount"], ["item2", "amount"], ...])
 *
 *  Domain: Server
 **/
-params ["_targetPos", "_cargo", "_aircraft"];
+params ["_targetPos", "_cargo", "_aircraft", "_items", "_smoke", "_box"];
 
 _angle = round random 180;
 _height = 300;
@@ -53,13 +54,47 @@ sleep 1.5;
 _playerCount = count playableUnits;
 _parachute = "B_Parachute_02_F" CreateVehicle [0,0,0];
 _parachute setPos [getPos _agVehicle select 0, getPos _agVehicle select 1, (getPos _agVehicle select 2)-5];
-_supplyBox = createVehicle ["Cargonet_01_box_F", [0,0,0], [], 0, "CAN_COLLIDE"];
+
+if (isNil "_box") then {
+	_box = "Cargonet_01_box_F";
+};
+_supplyBox = createVehicle [_box, [0,0,0], [], 0, "CAN_COLLIDE"];
 [_supplyBox, _cargo] remoteExec ["addAction", 0, true];
 _supplyBox attachTo [_parachute, [0,0,0]];
 _supplyBox allowDamage false;
+clearMagazineCargoGlobal _supplyBox;
+clearWeaponCargoGlobal _supplyBox;
+clearBackpackCargoGlobal _supplyBox;
+clearItemCargoGlobal _supplyBox;
+
+if ((count _items) > 0) then {
+	// Add cargo to inventory of supplyBox
+	{
+		_item = _x select 0;
+		_amount = _x select 1;
+		_supplyBox addItemCargoGlobal [_item, _amount];
+	} forEach _items;
+
+	// Delete supply box when inventory is empty
+	_supplyBox addEventHandler ["ContainerClosed",
+	{
+		params ["_container"];
+
+		if !(magazineCargo _container isEqualTo []) exitWith {};
+		if !(weaponCargo _container isEqualTo []) exitWith {};
+		if !(backpackCargo _container isEqualTo []) exitWith {};
+		if !(itemCargo _container isEqualTo []) exitWith {};
+
+		// TODO: Doesn't delete the object ?
+		deleteVehicle _container;
+	}];
+};
 
 waitUntil {getpos _supplyBox select 2<4};
-_smoker = "SmokeShellBlue" createVehicle (getpos _supplyBox vectorAdd [0,0,5]);
+if (isNil "_smoke") then {
+	_smoke = "SmokeShellBlue";
+};
+_smoker = _smoke createVehicle (getpos _supplyBox vectorAdd [0,0,5]);
 detach _supplyBox;
 
 sleep 20;

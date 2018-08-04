@@ -1,0 +1,8 @@
+- > Be able to buy medikit from shop (5000 points ?)
+- Fix "enemies left"
+    - Set to 0 everytime a new wave starts
+- Start vehicles with
+    - Technicals (rebel)
+    - Armored humvees
+    - Tanks
+    - Air ?

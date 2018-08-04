@@ -52,3 +52,14 @@ class armaKart
     enable = "1";
     removeAfterExpressionCall = 1;
 };
+
+class mediKit
+{
+    text = "Medic supply drop";
+    submenu = "";
+    expression = "[_this select 0, _this select 1, 'mediKit'] remoteExec ['killPoints_fnc_support', 2];";
+    icon = "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\call_ca.paa";
+    cursor = "\a3\Ui_f\data\IGUI\Cfg\Cursors\iconCursorSupport_ca.paa";
+    enable = "1";
+    removeAfterExpressionCall = 1;
+};

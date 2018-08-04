@@ -26,6 +26,9 @@ switch (_type) do {
         [] remoteExec ["supports_fnc_ragePack", _player];
     };
     case ("armaKart"): {
-    [_player] call supports_fnc_armaKart;
+        [_player] call supports_fnc_armaKart;
+    };
+    case ("mediKit"): {
+        [bulwarkCity, [], "B_T_VTOL_01_vehicle_F", [["Medikit", 1], ["FirstAidKit", 5]], "SmokeShellRed", "C_IDAP_supplyCrate_F"] remoteExec ["supports_fnc_supplyDrop", 2];
     };
 };
