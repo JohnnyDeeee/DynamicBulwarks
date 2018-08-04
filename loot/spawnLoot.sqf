@@ -72,6 +72,7 @@ _roomCount = 0;
 
 				if (_pools isEqualTo []) exitWith {
 					FATALERROR = "All loot is blacklisted!";
+					publicVariable FATALERROR;
 					"EndError" call BIS_fnc_endMissionServer;
 				};
 
