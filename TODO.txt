@@ -1,5 +1,1 @@
-- Start vehicles with
-    - Technicals (rebel)
-    - Armored humvees
-    - Tanks
-    - Air ?
+- Fix bug where units walk through barricades

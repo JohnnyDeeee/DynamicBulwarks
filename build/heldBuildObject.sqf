@@ -5,7 +5,7 @@ _actionID = _this select 2;
 
 
 detach shopVehic;
-{[shopVehic, _x] remoteExec ["enableCollisionWith", 0];} forEach playableUnits;
+{[shopVehic, _x] remoteExec ["enableCollisionWith", 0];} forEach allUnits;
 _player removeAction _actionId; // dropActID may need to be _player
 shopVehic setVehiclePosition [shopVehic, [], 0, "CAN_COLLIDE"];
 
@@ -38,13 +38,13 @@ shopVehic setVehiclePosition [shopVehic, [], 0, "CAN_COLLIDE"];
     } forEach _allPlayers;
     if (_closestPlayerDist > 5) then {
       thisHeldVehic attachTo [_player, [0,3,0.02], 'Pelvis'];
-      {[thisHeldVehic, _x] remoteExec ['disableCollisionWith', 0];} forEach playableUnits;
+      {[thisHeldVehic, _x] remoteExec ['disableCollisionWith', 0];} forEach allUnits;
       _player addAction ['<t color=''#00ffff''>' + 'Place Object', '
           _thisPlacedVehic = _this select 3 select 0;
           _player = _this select 1;
           _actionId = _this select 2;
           detach _thisPlacedVehic;
-          {[_thisPlacedVehic, _x] remoteExec [''enableCollisionWith'', 0];} forEach playableUnits;
+          {[_thisPlacedVehic, _x] remoteExec [''enableCollisionWith'', 0];} forEach allUnits;
           _player removeAction _actionId;
           _thisPlacedVehic setVehiclePosition [_thisPlacedVehic , [], 0, ''CAN_COLLIDE''];
       ', [thisHeldVehic]];
